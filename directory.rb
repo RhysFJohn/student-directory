@@ -1,3 +1,22 @@
+def input_students
+  puts "Please enter the names of the students"
+  puts "To finish, just hit return twice"
+  #create empty array
+  students = []
+  # get the first name
+  name = gets.chomp
+  # while the name is not empty repeat this code
+  while !name.empty? do
+    # add the student hash to the array
+    students << {name: name, cohort: :november}
+    puts "Now we have #{students.count} student(s)"
+    # get another name from the user
+    name = gets.chomp
+  end
+  # return the array of students
+  students
+end
+
 def print_header
   puts "The students of Villains Academy"
   puts "----------------"
@@ -13,27 +32,35 @@ def print_footer(names)
   puts "Overall, we have #{names.count} great student(s)"
 end
 
-def input_students
-  puts "Please enter the names of the students"
-  puts "To finish, just hit return twice"
-
+def interactive_menu
   students = []
-
-  name = gets.chomp
-  
-  while !name.empty? do
+  loop do
+    puts "Villains Academy Portal"
+    puts "------------------------"
+    puts "1. Input the students"
+    puts "2. Show the students"
+    puts "9. Exit"
+    puts "------------------------"
+    puts "Please enter an option: "
     
-    students << {name: name, cohort: :november}
-    puts "Now we have #{students.count} student(s)"
+    selection = gets.chomp
 
-    name = gets.chomp
+    case selection
+    when  "1"
+      students = input_students
+    when "2"
+      print_header
+      print(students)
+      print_footer(students)
+    when "9"
+      exit
+    else 
+      puts "Invalid option, Please Try again"
+    end
   end
-
-  students
 end
 
+
 #nothing happens until we call the methods
-students = input_students
-print_header
-print(students)
-print_footer(students)
+
+interactive_menu
